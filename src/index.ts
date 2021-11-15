@@ -10,5 +10,4 @@ app.use(cors());
 
 app.use(routes);
 
-let port = process.env.PORT || 8181;
-app.listen(port, () => console.log(`🚀 app rodando na porta ${port} 🚀`));
+app.listen(process.env.PORT || 8181, () => console.log(`app rodando..`));
