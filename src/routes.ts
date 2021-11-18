@@ -18,9 +18,9 @@ routes.post('/users', (req: Request, res: Response) => {
    res.status(201).send({ message: 'Usuario criado com sucesso.' });
 });
 
-routes.get('users/:id', (req: Request, res: Response) => {
+routes.get('/users/:id', (req: Request, res: Response) => {
    let { id } = req.params;
-   let idUser = users.filter((user) => user.id == id)[0];
+   let idUser = users[users.findIndex((user) => user.id == id)];
    res.status(200).send({ id: idUser.id, name: idUser.name, cpf: idUser.getCPF(), mail: idUser.email, age: idUser.age });
 });
 
@@ -36,7 +36,7 @@ routes.get('/users', (_, res: Response) => {
    res.status(200).send(noTranUsers);
 });
 
-routes.put('users/:id', (req: Request, res: Response) => {
+routes.put('/users/:id', (req: Request, res: Response) => {
    let { id } = req.params;
    let { name, age, email } = req.body;
    if (!name || !age || !email) {
@@ -52,14 +52,14 @@ routes.put('users/:id', (req: Request, res: Response) => {
    res.status(200).send({ message: 'Usuario editado.' });
 });
 
-routes.delete('users/:id', (req: Request, res: Response) => {
+routes.delete('/users/:id', (req: Request, res: Response) => {
    let { id } = req.params;
    let idUserIndex = users.findIndex((user) => user.id == id);
    users.splice(idUserIndex, 1);
    res.status(200).send({ message: 'Usuario deletado.' });
 });
 
-routes.post('user/:userId/transactions', (req: Request, res: Response) => {
+routes.post('/user/:userId/transactions', (req: Request, res: Response) => {
    let { title, value, type } = req.body;
    let { userId } = req.params;
    if (!title || !value || !type) {
@@ -74,7 +74,7 @@ routes.post('user/:userId/transactions', (req: Request, res: Response) => {
    res.status(200).send({ message: 'Transacao cadastrada.' });
 });
 
-routes.get('user/:userId/transactions/:id', (req: Request, res: Response) => {
+routes.get('/user/:userId/transactions/:id', (req: Request, res: Response) => {
    let { userId, id } = req.params;
    for (let user of users) {
       if (user.id == userId) {
@@ -87,7 +87,7 @@ routes.get('user/:userId/transactions/:id', (req: Request, res: Response) => {
    }
 });
 
-routes.get('user/:userId/transactions', (req, res) => {
+routes.get('/user/:userId/transactions', (req, res) => {
    let { userId } = req.params;
    for (let user of users) {
       if (user.id == userId) {
@@ -108,7 +108,7 @@ routes.get('user/:userId/transactions', (req, res) => {
    }
 });
 
-routes.put('users/:userId/transactions/:id', (req, res) => {
+routes.put('/user/:userId/transactions/:id', (req, res) => {
    let { userId, id } = req.params;
    let { title, value, type } = req.body;
    if (!title || !value || type) {
@@ -128,7 +128,7 @@ routes.put('users/:userId/transactions/:id', (req, res) => {
    res.status(200).send({ message: 'Transacao editada.' });
 });
 
-routes.delete('user/:userId/transactions/:id', (req, res) => {
+routes.delete('/user/:userId/transactions/:id', (req, res) => {
    let { userId, id } = req.params;
    for (let user of users) {
       if ((user.id = userId)) {

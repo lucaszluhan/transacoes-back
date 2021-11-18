@@ -28,4 +28,7 @@ class User {
 
 let users: User[] = [];
 
+let newUser = new User('lucas', '123', 'lala', 1);
+users.push(newUser);
+
 export { users, User, Transaction };
